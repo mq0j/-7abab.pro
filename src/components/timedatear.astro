@@ -1,0 +1,41 @@
+---
+import Icon from "astro-icon";
+import { useState, onMount } from 'astro';
+
+function getDate() {
+  const now = new Date();
+  const year = now.getFullYear().toString();
+  const month = (now.getMonth() + 1).toString().padStart(2, '0');
+  const day = now.getDate().toString().padStart(2, '0');
+  return `${day}-${month}-${year}`;
+}
+ let Hdate = '';
+ function TimeDate() {
+  const [Hdate, setHDate] = useState('');
+
+  onMount(async () => {
+    const currentDate = getDate();
+    const response = await fetch(`http://api.aladhan.com/v1/gToH/${currentDate}`);
+    const moment = await response.json();
+    setHDate(`${moment.data.hijri.day}/${moment.data.hijri.month.ar}/${moment.data.hijri.year} هـ`);
+  });
+}
+---
+<style>
+.imgdt{
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+        display: inline-block;
+        height : 30px
+    }
+    .imgdt:hover{
+        color:#0e6dc7;
+    }
+</style>
+
+<span class="text-lg text-neutral-100">
+    <br />
+    <Icon class="imgdt" name="ic:baseline-calendar-month" />&nbsp;{Hdate}
+</span>

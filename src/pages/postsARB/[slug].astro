@@ -1,0 +1,43 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import Layout from "@/layouts/LayoutARB.astro";
+import formatDate from "@/utils/formatDate";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("postsARB");
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+type Props = {
+  post: CollectionEntry<"posts">;
+};
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+<html dir="rtl">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&family=Quicksand:wght@300&family=Tajawal&display=swap');
+    *{
+  font-family: 'Cairo', sans-serif;
+  font-family: 'Quicksand', sans-serif;
+  font-family: 'Tajawal', sans-serif;
+  }
+    </style>
+<Layout title={post.data.title}>
+  <main class="post mx-auto flex w-full max-w-prose flex-col gap-4">
+    <header role="presentation">
+      <h1 class="text-md">
+        {post.data.title} - {formatDate(post.data.publishedAt)}
+      </h1>
+      <p class="italic">{post.data.description}</p>
+    </header>
+
+    <Content />
+  </main>
+</Layout>
+</html>

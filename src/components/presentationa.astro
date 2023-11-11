@@ -1,0 +1,10 @@
+---
+import presentation from "@/data/presentationARB";
+import convertAsteriskToStrongTag from "@/utils/convertAsteriskToStrongTag";
+---
+
+<h1 class="text-3xl text-neutral-100">{presentation.title}</h1> 
+      <h2
+        class="max-w-[60ch] leading-6"
+        set:html={convertAsteriskToStrongTag(presentation.description)}; >
+</h2> 

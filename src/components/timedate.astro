@@ -1,0 +1,50 @@
+---
+import { format } from 'date-fns-tz';
+import Icon from "astro-icon";
+const saudiArabiaTimeZone = 'Asia/Riyadh';
+const currentDateTimeInSaudiArabia = format(new Date(), 'MMMM do, yyyy • hh:mm a', { timeZone: saudiArabiaTimeZone });
+const currentDate = new Date();
+const specialDates = [
+  { date: new Date(2024, 3, 10), message: "Eid Al-Fitr 🎉" },
+  { date: new Date(2024, 5, 16), message: "Eid Al-Adha 🎉" },
+  { date: new Date(2024, 2, 11), message: "Ramadan Mubarak 🎉" },
+  { date: new Date(currentDate.getFullYear(), 11, 10), message: "Happy BDAY 🎉" },
+];
+const specialMessage = specialDates.find(special => {
+  return (
+    special.date.getFullYear() === currentDate.getFullYear() &&
+    special.date.getMonth() === currentDate.getMonth() &&
+    special.date.getDate() === currentDate.getDate()
+  );
+})?.message || null;
+
+---
+
+<style>
+    .imgwe{
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+        display: inline-block;
+        height : 30px
+    }
+
+    .imgdt{
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+        display: inline-block;
+        height : 30px
+    }
+
+    .imgwe:hover{
+        color:#0e6dc7;
+    }
+
+    .imgdt:hover{
+        color:#0e6dc7;
+    }
+</style>
+<span class="text-lg text-neutral-100"> <br> <Icon class="imgdt" name="ic:baseline-calendar-month"/>&nbsp;{currentDateTimeInSaudiArabia} • {specialMessage}</span>

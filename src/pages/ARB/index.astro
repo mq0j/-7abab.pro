@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/LayoutARB.astro";
+import PostCard from "@/components/PostCard.astro";
+import SkillsARB from "@/components/SkillsARB.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import Link from "@/components/shared/Link.astro";
+import PresentationARB from "@/components/presentationa.astro";
+import projectsARB from "@/data/projectsARB";
+import Logo from "@/components/Logoarb.astro";
+import Socialicon from "@/components/Socialicon.astro";
+import Weather from '@/components/weatherar.astro';
+const posts = await getCollection("postsARB");
+---
+<Layout>
+  <Logo/>
+  <main class="flex flex-col gap-20"> 
+    <article class="flex flex-col gap-8"> 
+      <PresentationARB/>
+      <span>
+        <Weather/>
+        </span>
+      <Socialicon/>
+    </article>
+    <article class="flex flex-col gap-8">
+      <header class="flex w-full flex-row justify-between gap-2">
+        <h3 class="text-lg text-neutral-100">
+         المشاريع ({projectsARB.length}) :
+        </h3>
+      </header>
+      <section class="flex flex-col gap-4">
+        {
+          projectsARB.length !== 0 &&
+            projectsARB.map((project) => <ProjectCard {...project} />)
+        }
+      </section>
+    </article>
+    <article class="flex flex-col gap-8">
+      <header class="flex w-full flex-row justify-between gap-2">
+        <h3 class="text-lg text-neutral-100">المهارات : </h3>
+      </header>
+      <section class="flex flex-col gap-4 md:flex-row md:flex-wrap">
+        <SkillsARB />
+      </section>
+    </article>
+  </main>
+</Layout>

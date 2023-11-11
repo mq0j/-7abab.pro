@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import Socialicon from "@/components/Socialicon.astro";
+import Layout from "@/layouts/Layout.astro";
+import PostCard from "@/components/PostCard.astro";
+import Skills from "@/components/Skills.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import Link from "@/components/shared/Link.astro";
+import Presentatione from "@/components/presentatione.astro";
+import projects from "@/data/projects";
+import Logo from "@/components/Logo.astro";
+import Weather from '@/components/weather.astro';
+import { ScrollObserver } from 'astro-scroll-observer';
+
+const post = await getCollection("posts");
+---
+<style>
+
+</style>
+<Layout>
+  
+  <Logo/>
+  <main class="flex flex-col gap-20"> 
+    <article class="flex flex-col gap-8"> 
+      <Presentatione/>
+      <span>
+      <Weather/>
+      </span>
+      <Socialicon/>
+  </article>
+    <article class="flex flex-col gap-8">
+      <header class="flex w-full flex-row justify-between gap-2">
+        <h3 class="text-lg text-neutral-100">
+         Projects ({projects.length}) :
+        </h3>
+      </header>
+      <section class="flex flex-col gap-4">
+        {
+          projects.length !== 0 &&
+            projects.map((project) => <ProjectCard {...project} />)
+        }
+      </section>
+    </article>
+    <article class="flex flex-col gap-8">
+      <header class="flex w-full flex-row justify-between gap-2">
+        <h3 class="text-lg text-neutral-100">Skills :</h3>
+      </header>
+      <section class="flex flex-col gap-4 md:flex-row md:flex-wrap">
+        <Skills />
+      </section>
+    </article>
+  </main>
+</Layout>

@@ -1,0 +1,49 @@
+---
+import Icon from 'astro-icon';
+
+const weatherResponse = await globalThis.fetch("https://api.openweathermap.org/data/2.5/weather?q=Khobar&appid=5052748b1f047a294e33aaa62e82927d&lang=en");
+const weatherData = await weatherResponse.json();
+let city = "";
+let temperature = "";
+let weatherDescription = "";
+let weathericon = {Icon};
+if (weatherData.name && weatherData.main && weatherData.main.temp && weatherData.weather[0].description) {
+  city = weatherData.name;
+  temperature = Math.round(weatherData.main.temp - 273.15); // تحويل من كلفن إلى مئوية
+  weatherDescription = weatherData.weather[0].description;
+}
+
+switch (true) {
+    case weatherDescription.includes("cloud"):
+    weathericon = "wi:cloud";
+      break;
+    case weatherDescription.includes("rain"):
+    weathericon = "wi:rain";
+      break;
+    case weatherDescription.includes("stormy"):
+    weathericon = "wi:cloudy-windy";
+      break;
+    case weatherDescription.includes("windy"):
+    weathericon = "wi:cloudy-windy";
+      break;
+    default:
+    weathericon = "wi:night-clear";
+      break;
+  }
+
+---
+<style>
+
+.imgwe{
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+        display: inline-block;
+        height : 30px
+    }
+.imgwe:hover{
+        color:#0e6dc7;
+    }
+</style>
+<span class="text-lg text-neutral-100"><Icon class="imgwe" name={weathericon}/>&nbsp;{temperature}°C in <span style="color:rgb(59 130 246);">{city}</span></span>
