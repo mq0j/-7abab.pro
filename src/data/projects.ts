@@ -9,7 +9,7 @@ const projects: Project[] = [
   {
     title: "Personal Website",
     description: "A personal website to showcase my projects and skills.",
-    link: "https://mq0j.us/",
+    link: "#",
   },
   {
     title: "Flip Coin KSA",
