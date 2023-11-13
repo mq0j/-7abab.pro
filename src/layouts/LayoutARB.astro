@@ -14,7 +14,15 @@ export interface Props {
 
 const { title } = Astro.props;
 ---
-
+<style is:global>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&family=Quicksand:wght@300&family=Tajawal&display=swap');
+    html{
+  font-family: 'Cairo', sans-serif;
+  font-family: 'Quicksand', sans-serif;
+  font-family: 'Tajawal', sans-serif;
+  direction : rtl;
+  }
+    </style>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
   <SEOTags title={title} />
@@ -26,14 +34,6 @@ const { title } = Astro.props;
     <BlurCircle position="top" color={theme.colors.blur.top} />
     <BlurCircle position="bottom" color={theme.colors.blur.bottom} />
     <slot />
-    <style is:global>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&family=Quicksand:wght@300&family=Tajawal&display=swap');
-    html{
-  font-family: 'Cairo', sans-serif;
-  font-family: 'Quicksand', sans-serif;
-  font-family: 'Tajawal', sans-serif;
-  direction : rtl;
-  }
-    </style>
+    
   </body>
 </html>
